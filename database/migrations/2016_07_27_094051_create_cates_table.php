@@ -19,6 +19,7 @@ class CreateCatesTable extends Migration
             $table->integer("order");
             $table->integer("parent_id");
             $table->string("keywords");
+            $table->tinyInteger("status");
             $table->string("description");
             $table->timestamps();
         });
