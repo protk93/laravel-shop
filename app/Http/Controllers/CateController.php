@@ -7,7 +7,8 @@ use App\cate;
 class CateController extends Controller
 {
 	public function getAdd() {
-		return view ('admin.cate.add');
+		$parent = cate::select('name','id','parent_id')->get()->toArray();
+		return view ('admin.cate.add',compact('parent'));
 	}
 
 	public function postAdd(CateRequest $request) {
@@ -17,13 +18,14 @@ class CateController extends Controller
 		$cate ->keywords    = $request->txtKeyword;
 		$cate ->description = $request->txtDescription;
 		$cate ->parent_id   = $request->parentId;
-		$cate ->alias       = $request->txtCateName;
+		$cate ->alias       = changeTitle($request->txtCateName);
 		$cate ->status       = $request->rdoStatus;
 		$cate ->save();
 		return redirect()->route('admin.cate.list')->with(['flash_level'=>'success','flash_message'=>"Add category success!!"]);
 	}
 
 	public function getList() {
-		return view ('admin.cate.list');
+		$data = cate::select('name','id','parent_id','status')->orderBy('id', 'desc')->get()->toArray();
+		return view ('admin.cate.list', compact('data'));
 	}
 }

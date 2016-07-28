@@ -19,7 +19,7 @@
             <label>Category Parent</label>
             <select class="form-control" name ="parentId">
                 <option value="0">Please Choose Category</option>
-                <option value="">Tin Tức</option>
+                <?php cate_parent($parent); ?>
             </select>
         </div>
         <div class="form-group">
