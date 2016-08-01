@@ -60,7 +60,7 @@ function changeTitle($str) {
     return $str; 
 } 
 
-function cate_parent($data, $parent = 0, $str ='--', $select=3) {
+function cate_parent($data, $parent = 0, $str ='--', $select = 3) {
 	foreach ($data as $key => $value) {
 		$id = $value['id'];
 		$name = $value['name'];

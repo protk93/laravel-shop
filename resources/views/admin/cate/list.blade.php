@@ -32,8 +32,8 @@
             </td>
 
             <td>{{($value['status'] == 1)? "active":"inactive"}}</td>
-            <td class="center"><i class="fa fa-trash-o  fa-fw"></i><a href="#"> Delete</a></td>
-            <td class="center"><i class="fa fa-pencil fa-fw"></i> <a href="#">Edit</a></td>
+            <td class="center"><i class="fa fa-trash-o  fa-fw"></i><a href="{{route('admin.cate.getDelete',$value['id'])}}" onclick="return xacnhanxoa('Bạn Có Chắc Muốn Xóa Không')"> Delete</a></td>
+            <td class="center"><i class="fa fa-pencil fa-fw"></i> <a href="{{route('admin.cate.getEdit',$value['id'])}}">Edit</a></td>
         </tr>
       @endforeach 
     </tbody>

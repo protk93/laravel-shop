@@ -25,6 +25,16 @@
 
     <!-- DataTables Responsive CSS -->
     <link href="{{url('public/admin/bower_components/datatables-responsive/css/dataTables.responsive.css') }}" rel="stylesheet">
+    
+    <link href="{{url('public/admin/css/style.css')}}" rel="stylesheet">
+    <script src="{{url('public/admin/js/ckeditor/ckeditor.js')}}"></script>
+    <script src="{{url('public/admin/js/ckfinder/ckfinder.js')}}"></script>
+    <script type="text/javascript">
+        
+    var baseURL = "{!! url("/") !!}";
+    </script>
+
+    <script src="{{url('public/admin/js/func_ckfinder.js')}}"></script>
 </head>
 
 <body>
@@ -40,7 +50,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">Admin Area - Khoa Phạm</a>
+                <a class="navbar-brand" href="{{url('/')}}">Admin Area</a>
             </div>
             <!-- /.navbar-header -->
 
@@ -101,10 +111,10 @@
                             <a href="#"><i class="fa fa-cube fa-fw"></i> Product<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="#">List Product</a>
+                                    <a href="{{url('admin/product/list')}}">List Product</a>
                                 </li>
                                 <li>
-                                    <a href="#">Add Product</a>
+                                    <a href="{{url('admin/product/add')}}">Add Product</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
@@ -133,8 +143,8 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header">Category
-                            <small>@yield('title')</small>
+                        <h1 class="page-header">
+                            @yield('title')
                         </h1>
                     </div>
                     <!-- /.col-lg-12 -->

@@ -31,7 +31,7 @@ class CateRequest extends Request
     public function messages() {
         return [
             'txtCateName.required' => 'Vui Lòng Nhập tên category',
-            'txtCateName.unique' => 'email đã tồn tại',
+            'txtCateName.unique' => 'category đã tồn tại',
         ];
     }
 }
