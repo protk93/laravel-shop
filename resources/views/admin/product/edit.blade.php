@@ -1,7 +1,7 @@
 @extends('admin.master')
 @section('content')
 @section('title', 'Product <small>Add</small>')
-<form action="{!! url('/admin/product/edit',$id) !!}" method="POST" enctype="multipart/form-data">
+<form name = "fedit" action="{!! url('/admin/product/edit',$id) !!}" method="POST" enctype="multipart/form-data">
 <div class="col-lg-7" style="padding-bottom:120px">
 @include("admin.blocks.error")
     <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -33,6 +33,7 @@
         <div class="form-group">
             <label>Images current</label>
             <img src="{!!asset('resources/upload/'.$product['image'])!!}" width="100">
+            <input type="hidden" name="img_current" value="{!!$product['image']!!}">
         </div>
         <div class="form-group">
             <label>Images</label>
@@ -53,12 +54,8 @@
     <div class="col-lg-4">
     @foreach ($product_img as $key=> $img)
         <div class="form-group" id="hinh{!!$key!!}">
-            <img src="{!!asset('resources/upload/product_detail/'.$img['image'])!!}" width="150" height="100" id="hinh{!!$key!!}">
-            <a id="del_img" class="btn btn-danger btn-circle icon-del"><i class="fa fa-times" aria-hidden="true"></i></a>
-        </div>
-        <div class="form-group">
-            <input type="file" name="fproduct[]">
-
+            <img src="{!!asset('resources/upload/product_detail/'.$img['image'])!!}" width="150" height="100" id="hinh{!!$key!!}" data-url =" {!!url('admin/product/del-img')!!}">
+            <a href="javascript:void(0)" data-id ="{!! $img['id'] !!}" id="del_img" class="btn btn-danger btn-circle icon-del"><i class="fa fa-times" aria-hidden="true"></i></a>
         </div>
     @endforeach
         <button type="button" class="btn btn-primary" id="addImages">ADD image</button>
