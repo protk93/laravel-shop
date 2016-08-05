@@ -7,7 +7,9 @@ use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
-
+use App\Http\Requests\LoginRequest;
+use Auth;
+use Illuminate\Support\MessageBag;
 class AuthController extends Controller
 {
     /*
@@ -37,7 +39,7 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware($this->guestMiddleware(), ['except' => 'logout']);
+        $this->middleware($this->guestMiddleware(), ['except' => 'getLogout']);
     }
 
     /**
@@ -68,5 +70,30 @@ class AuthController extends Controller
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
+    }
+
+    public function getLogin() {
+        return view('admin.login');
+    }
+
+    public function postLogin(LoginRequest $request) {
+        $login = array(
+            'username' =>$request->txtUser,
+            'password' => $request->password,
+            'level'=>1
+            );
+        
+        if (Auth::attempt($login)) {
+            return redirect('admin/user/list');
+        } else {
+            $errors = new MessageBag(['password' => ['username or password invalid.']]);
+            return redirect()->back()->withErrors($errors)->withInput();
+        }
+        
+    }
+
+    public function getLogout() {
+        Auth::logout();
+        return redirect('auth/login');
     }
 }

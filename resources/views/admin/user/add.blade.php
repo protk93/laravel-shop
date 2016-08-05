@@ -24,6 +24,15 @@
             <input type="text" class="form-control" name="txtEmail" placeholder="Please Enter Email" value="{!!old('txtEmail')!!}" />
         </div>
         <div class="form-group">
+            <label>Status</label>
+            <label class="radio-inline">
+                <input name="status" value="1" checked="" type="radio">Active
+            </label>
+            <label class="radio-inline">
+                <input name="status" value="0" type="radio">InActive
+            </label>
+        </div>
+        <div class="form-group">
             <label>User Level</label>
             <label class="radio-inline">
                 <input name="rdoLevel" value="1" checked="" type="radio">Admin

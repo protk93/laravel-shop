@@ -14,30 +14,26 @@
         </tr>
     </thead>
     <tbody>
+    <?php $i = 0; ?>
+    @foreach ($user as  $item)
+    <?php $i ++; ?>
         <tr class="odd gradeX" align="center">
-            <td>1</td>
-            <td>quoctuan</td>
-            <td>Superadmin</td>
-            <td>Hiện</td>
-            <td class="center"><i class="fa fa-trash-o  fa-fw"></i><a href="#"> Delete</a></td>
-            <td class="center"><i class="fa fa-pencil fa-fw"></i> <a href="#">Edit</a></td>
+            <td>{!!$i!!}</td>
+            <td>{!!$item['username']!!}</td>
+            <td>
+                @if ($item['id']==4)
+                {{'SuperAdmin'}}
+                @elseif ($item['level']==1)
+                {{'Admin'}}
+                @else
+                {{'member'}}
+                @endif
+            </td>
+            <td>{!!($item['status']==1)?'Active':'InActive'!!}</td>
+            <td class="center"><i class="fa fa-trash-o  fa-fw"></i><a href="{{route('admin.user.getDelete',$item['id'])}}" onclick="return xacnhanxoa('Bạn Có Chắc Muốn Xóa Không')"> Delete</a></td>
+            <td class="center"><i class="fa fa-pencil fa-fw"></i> <a href="{{route('admin.user.getEdit',$item['id'])}}">Edit</a></td>
         </tr>
-        <tr class="even gradeC" align="center">
-            <td>2</td>
-            <td>kutun</td>
-            <td>Admin</td>
-            <td>Ẩn</td>
-            <td class="center"><i class="fa fa-trash-o  fa-fw"></i><a href="#"> Delete</a></td>
-            <td class="center"><i class="fa fa-pencil fa-fw"></i> <a href="#">Edit</a></td>
-        </tr>
-        <tr class="odd gradeX" align="center">
-            <td>3</td>
-            <td>kuteo</td>
-            <td>Member</td>
-            <td>Hiện</td>
-            <td class="center"><i class="fa fa-trash-o  fa-fw"></i><a href="#"> Delete</a></td>
-            <td class="center"><i class="fa fa-pencil fa-fw"></i> <a href="#">Edit</a></td>
-        </tr>
+    @endforeach 
     </tbody>
 </table>
 @endsection

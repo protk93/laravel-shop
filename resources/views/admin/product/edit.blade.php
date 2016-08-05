@@ -54,7 +54,7 @@
     <div class="col-lg-4">
     @foreach ($product_img as $key=> $img)
         <div class="form-group" id="hinh{!!$key!!}">
-            <img src="{!!asset('resources/upload/product_detail/'.$img['image'])!!}" width="150" height="100" id="hinh{!!$key!!}" data-url =" {!!url('admin/product/del-img')!!}">
+            <img src="{!!asset('resources/upload/product_detail/'.$img['image'])!!}" width="150" height="200" id="hinh{!!$key!!}" data-url =" {!!url('admin/product/del-img')!!}">
             <a href="javascript:void(0)" data-id ="{!! $img['id'] !!}" id="del_img" class="btn btn-danger btn-circle icon-del"><i class="fa fa-times" aria-hidden="true"></i></a>
         </div>
     @endforeach

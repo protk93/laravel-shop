@@ -9,13 +9,10 @@
 | It's a breeze. Simply tell Laravel the URIs it should respond to
 | and give it the controller to call when that URI is requested.
 |
-*/
+*/!
+Route::get('/' ,['as' => 'index','uses'   => 'IndexController@index']);	
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::group(['prefix'=>'admin'], function() {
+Route::group(['prefix'=>'admin','middleware' => 'auth'], function() {
 	Route::group(['prefix'=>'cate'], function() {
 		Route::get('list' ,['as'        => 'admin.cate.list','uses'      => 'CateController@getList']);
 		Route::get('add' ,['as'         => 'admin.cate.getAdd','uses'    => 'CateController@getAdd']);	
@@ -32,7 +29,7 @@ Route::group(['prefix'=>'admin'], function() {
 		Route::get('delete/{id}' ,['as' => 'admin.product.getDelete','uses' => 'ProductController@getDelete']);
 		Route::get('edit/{id}' ,['as'   => 'admin.product.getEdit','uses'   => 'ProductController@getEdit']);	
 		Route::post('edit/{id}' ,['as'  => 'admin.product.postEdit','uses'  => 'ProductController@postEdit']);
-		Route::post('del-img/{id}' ,['as'   => 'admin.product.getDelImg','uses'   => 'ProductController@getDelImg']);
+		Route::post('del-img/{id}' ,['as' => 'admin.product.getDelImg','uses'   => 'ProductController@getDelImg']);
 	});
 
 	Route::group(['prefix'          => 'user'], function() {
@@ -41,6 +38,14 @@ Route::group(['prefix'=>'admin'], function() {
 		Route::post('add' ,['as'        => 'admin.user.postAdd','uses'   => 'UserController@postAdd']);
 		Route::get('delete/{id}' ,['as' => 'admin.user.getDelete','uses' => 'UserController@getDelete']);
 		Route::get('edit/{id}' ,['as'   => 'admin.user.getEdit','uses'   => 'UserController@getEdit']);	
-		Route::post('edit/{id}' ,['as'  => 'admin.user.postEdit','uses'  => 'UserController@postEdit']);
+		Route::post('edit/{id}' ,['as'  => 'admin.user.postEdit','uses'  => 'UserController@postEdit']);	
 	});
 });
+Route::get('auth/login' ,['as'  => 'auth.getLogin','uses'   => 'Auth\AuthController@getLogin']);	
+Route::post('auth/login' ,['as' => 'auth.postLogin','uses'  => 'Auth\AuthController@postLogin']);
+Route::get('auth/logout' ,['as' => 'auth.getLogout','uses'   => 'Auth\AuthController@getLogout']);	
+Route::get('test/{id}/{name}', function () {
+    return view('user.page.category');
+});
+Route::get('loai-san-pham/{id}/{name}' ,['as' => 'productCate','uses'   => 'IndexController@productCate']);
+Route::get('chi-tiet-san-pham/{id}/{name}' ,['as' => 'productDetail','uses'   => 'IndexController@productDetail']);
