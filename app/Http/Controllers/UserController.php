@@ -11,8 +11,8 @@ use App\User;
 use Auth;
 class UserController extends Controller
 {
-    public function getAdd() {
-    	return view ('admin.user.add');
+    	public function getAdd() {
+    		return view ('admin.user.add');
 	}
 
 	public function postAdd(UserRequest $request) {

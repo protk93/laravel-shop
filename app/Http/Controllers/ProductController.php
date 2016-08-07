@@ -11,7 +11,7 @@ use App\ProductImages;
 use File;
 use Validator;
 use Auth;
-//use Input;
+use Image;
 class ProductController extends Controller
 {
     public function getAdd() {
@@ -36,10 +36,11 @@ class ProductController extends Controller
 		$product ->cate_id     = $request->cateID;
 		$product ->user_id     = Auth::user()->id;
 		$product ->alias       = changeTitle($request->txtName);
-        $this->resize($image,$file_name,'product');
+        		resize($image,$file_name,'product');
 		$image->move($destinationPath, $file_name);
 		$product ->save();
 		$id = $product->id;
+		if (!empty($request->file('fproduct'))) {
 		foreach ($request->file('fproduct') as $img) {
 			$productDetail = new ProductImages();
 			if(!empty($img)) {
@@ -50,8 +51,9 @@ class ProductController extends Controller
 				$productDetail ->image = $image;
 				$productDetail ->product_id = $id;
 				$productDetail->save();
-				$this->resize($img,$image,'productImage');
+				resize($img,$image,'productImage');
 				$img->move('resources/upload/product_detail/', $image);
+			}
 			}
 		}
 		return redirect()->route('admin.product.list')->with(['flash_level'=>'success','flash_message'=>"Add product success!!"]);
@@ -67,10 +69,12 @@ class ProductController extends Controller
 	public function getDelete($id) {
 		$img = product::find($id)->pimage->toArray();
 		foreach ($img as $value) {
-			File::delete('resources/upload/product_detail/'.$value['image']);
+			deleteImage($value['image'],'productImage');
+			//File::delete('resources/upload/product_detail/'.$value['image']);
 		}
 		$product = product::findOrFail($id);
-		File::delete('resources/upload/'.$product->image);
+		deleteImage($product->image,'product');
+		//File::delete('resources/upload/'.$product->image);
 		$product->delete();
 		return redirect()->route('admin.product.list')->with(['flash_level'=>'success','flash_message'=>"delete product success!!"]);		
 	}
@@ -84,21 +88,23 @@ class ProductController extends Controller
 
 	public function postEdit(Request $request, $id) {
 	 	$validator = Validator::make(Request::all(), [
-            'txtName' => 'required',
-            'txtPrice' => 'required',
-            'fImages' => 'image',
-            'cateID' => 'required'
-        ],
+		            'txtName' => 'required',
+		            'txtPrice' => 'required',
+		            'fImages' => 'mimes:jpeg,jpg,png',
+		            'fproductImg.*' => 'mimes:jpeg,jpg,png',// đối với mảng thì phải dùng *
+		            'cateID' => 'required'
+		        ],
 		['txtName.required' => 'Vui Lòng Nhập tên product',
-            'txtPrice.required' => 'Vui Lòng Nhập gia',
-            'fImages.image' => 'vui lòng chọn file ảnh',
-            'cateID.required' => 'Vui Lòng chọn category',]
-        );
+            		'txtPrice.required' => 'Vui Lòng Nhập gia',
+            		'fImages.mimes' => 'vui lòng chọn file ảnh đuôi jpg, jpeg, png',
+            		'fproductImg.*.mimes' => 'vui lòng chọn file ảnh đuôi jpg, jpeg, png',
+            		'cateID.required' => 'Vui Lòng chọn category',]
+        		);
 		if ($validator->fails()) {
-            return redirect()->route('admin.product.getEdit',$id)
-                        ->withErrors($validator)
-                        ->withInput();
-        }
+	            		return redirect()->route('admin.product.getEdit',$id)
+	                        	->withErrors($validator)
+	                        	->withInput();
+	        	}
 		$product = product::find($id);
 		$product ->name        = Request::input('txtName');
 		$product ->price       = Request::input('txtPrice');
@@ -110,15 +116,14 @@ class ProductController extends Controller
 		$product ->user_id     = Auth::user()->id;;
 		$product ->alias       = changeTitle(Request::input('txtName'));
 		if (!empty(Request::file('fImages'))) {
-			$file_name = Request::file('fImages')->getClientOriginalName();
-			$extension = File::extension($file_name);
+			$image = Request::file('fImages');
+			//$file_name = Request::file('fImages')->getClientOriginalName();
+			$extension = $image->getClientOriginalExtension();
 			$file_name = FILE_NAME.time().'.'.$extension;
 			$product ->image       = $file_name;
+			resize($image,$file_name,'product');
 			Request::file('fImages')->move('resources/upload/', $file_name);
-			$img = "resources/upload/".Request::input('img_current');
-			if (File::exists($img)){
-				File::delete($img);
-			}
+			deleteImage(Request::input('img_current'),'product');
 		}
 		$product ->save();
 
@@ -126,12 +131,12 @@ class ProductController extends Controller
 			foreach (Request::file('fproductImg') as $img) {
 			$productDetail = new ProductImages();
 			if(!empty($img)) {
-				$images = $img->getClientOriginalName();
-				$extension = File::extension($images);
+				$extension = $img->getClientOriginalExtension();
 				$ran = rand(0,3000);
 				$images = FILE_NAME.time().$ran.'.'.$extension;
 				$productDetail ->image = $images;
 				$productDetail ->product_id = $id;
+				resize($img, $images, 'productImage');
 				$img->move('resources/upload/product_detail/', $images);
 				$productDetail->save();
 			}
@@ -147,57 +152,14 @@ class ProductController extends Controller
 			$img = ProductImages::find($id);
 			if (!empty($img)) {
 				$name = "resources/upload/product_detail/".$img->image;
-				if (File::exists($name)){
-					File::delete($name);	
+				$nameSize100 = "resources/upload/100x130/".$img->image;
+				if (File::exists($name )&&File::exists($nameSize100 )){
+					File::delete($name);
+					File::delete($nameSize100);	
 				}
 				$img->delete();
 			}
 			return "ok";
 		}
 	}
-
-/**
- * resize image
- * @param  [object] $image   [get file]
- * @param  [array] $content [description]
- * @return [object]
- */
-	private function resize($image,$name,$type)
-    {
-    	try 
-    	{
-    		switch ($type) {
-                case "product":
-                    $size = array(
-                        '470x705' => ['w'=>470,'h'=>705],
-                        '270x350' => ['w'=>270,'h'=>350],
-                        '50x50' =>['w'=>50,'h'=>50]);
-                    break;
-                case "productImage":
-                    $size = array(
-                        '100x130' => ['w'=>470,'h'=>705],);
-                    break;
-                default:
-                    $size = array(
-                        '270x350' => ['w'=>270,'h'=>350],);
-            }
-            $imageRealPath 	= 	$image->getRealPath();
-            var_dump($size);
-                exit();
-            $img = Image::make($imageRealPath); // use this if you want facade style code
-//	    	$img->resize($size, null, function($constraint) {
-//	    		 $constraint->aspectRatio();// tự động điều chỉnh theo size
-//	    	});
-            foreach ($size as $key => $val) {
-               $path = ('resources/upload/').$key.'/'. $name;
-               $size =  $img->resize($val['w'], $val['h'])->save($path);
-            }
-            return $size;
-    	}
-    	catch(Exception $e)
-    	{
-    		return false;
-    	}
-
-    }
 }

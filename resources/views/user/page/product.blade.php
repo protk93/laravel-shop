@@ -8,47 +8,32 @@
         <div class="span5">
           <ul class="thumbnails mainimage">
             <li class="span5">
-              <a  rel="position: 'inside' , showTitle: false, adjustX:-4, adjustY:-4" class="thumbnail cloud-zoom" href="{{url('public/user/img/product1big.jpg')}}">
+              <a  rel="position: 'inside' , showTitle: false, adjustX:-4, adjustY:-4" class="thumbnail cloud-zoom" href="{{url('resources/upload/'.$product->image)}}">
                 <img height="706" width="470" src="{!!asset('resources/upload/'.$product->image)!!}" alt="" title="">
               </a>
             </li>
+            @foreach ($image as $img)
+            
             <li class="span5">
-              <a  rel="position: 'inside' , showTitle: false, adjustX:-4, adjustY:-4" class="thumbnail cloud-zoom" href="{{url('public/user/img/product2big.jpg')}}">
-                <img  src="{{url('public/user/img/product2big.jpg')}}" alt="" title="">
+              <a  rel="position: 'inside' , showTitle: false, adjustX:-4, adjustY:-4" class="thumbnail cloud-zoom" href="{{url('resources/upload/product_detail/'.$img->image)}}">
+                <img  src="{!!asset('resources/upload/product_detail/'.$img->image)!!}" alt="" title="">
               </a>
             </li>
-            <li class="span5">
-              <a  rel="position: 'inside' , showTitle: false, adjustX:-4, adjustY:-4" class="thumbnail cloud-zoom" href="{{url('public/user/img/product1big.jpg')}}">
-                <img src="{{url('public/user/img/product1big.jpg')}}" alt="" title="">
-              </a>
-            </li>
-            <li class="span5">
-              <a  rel="position: 'inside' , showTitle: false, adjustX:-4, adjustY:-4" class="thumbnail cloud-zoom" href="{{url('public/user/img/product2big.jpg')}}">
-                <img  src="{{url('public/user/img/product2big.jpg')}}" alt="" title="">
-              </a>
-            </li>
+            @endforeach
           </ul>
           <ul class="thumbnails mainimage">
             <li class="producthtumb">
               <a class="thumbnail" >
-                <img  src="{{url('public/user/img/product1.jpg')}}" alt="" title="">
+                <img  src="{!!asset('resources/upload/'.$product->image)!!}" alt="" title="">
               </a>
             </li>
+            @foreach ($image as $img)
             <li class="producthtumb">
               <a class="thumbnail" >
-                <img  src="{{url('public/user/img/product2.jpg')}}" alt="" title="">
+                <img  src="{!!asset('resources/upload/100x130/'.$img->image)!!}" alt="" title="">
               </a>
             </li>
-            <li class="producthtumb">
-              <a class="thumbnail" >
-                <img  src="{{url('public/user/img/product1.jpg')}}" alt="" title="">
-              </a>
-            </li>
-            <li class="producthtumb">
-              <a class="thumbnail" >
-                <img  src="{{url('public/user/img/product2.jpg')}}" alt="" title="">
-              </a>
-            </li>
+             @endforeach
           </ul>
         </div>
          <!-- Right Details-->

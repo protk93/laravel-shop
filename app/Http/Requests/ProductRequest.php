@@ -24,9 +24,10 @@ class ProductRequest extends Request
     public function rules()
     {
         return [
-            'txtName' => 'required|unique:products,name',
+            'txtName' => 'required | unique:products,name',
             'txtPrice' => 'required',
-            'fImages' => 'required|image',
+            'fImages' => 'required | mimes:jpg,jpeg,png',
+            'fproduct.*' => 'mimes:jpg,jpeg,png',
             'cateID' => 'required'
         ];
     }
@@ -37,7 +38,8 @@ class ProductRequest extends Request
             'txtName.unique' => 'product đã tồn tại',
             'txtPrice.required' => 'Vui Lòng Nhập gia',
             'fImages.required' => 'Vui Lòng chọn hình ảnh',
-            'fImages.image' => 'vui lòng chọn file ảnh',
+            'fImages.mimes' => 'vui lòng chọn file ảnh đuôi jpg, jpeg, png',
+            'fproduct.*.mimes' => 'vui lòng chọn file ảnh đuôi file jpg, jpeg, png',
             'cateID.required' => 'Vui Lòng chọn category',
         ];
     }

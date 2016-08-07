@@ -78,4 +78,62 @@ function cate_parent($data, $parent = 0, $str ='--', $select = 3) {
 
 
 } 
+function deleteImage($image, $type) {
+	switch ($type) {
+                	case "product":
+	                    	$size = array('upload','470x705' ,'270x350' ,'50x50');
+	                    break;
+                	case "productImage":
+	                    	$size = array('100x130','product_detail' );
+	                    break;
+                	default:
+                    		$size = array('upload','470x705' ,'270x350' ,'50x50');
+        	}
+        	
+        	foreach ($size as $value) {
+        		if ($value == 'upload') {
+        			$name = "resources/upload/".$image;	
+        		} else {
+        			$name = "resources/upload/".$value.'/'.$image;
+        		}
+		if (File::exists($name)){
+			File::delete($name);	
+		}
+        	} 
+	        	
+
+}
+function resize($image,$name,$type) {
+	try 
+	{
+	switch ($type) {
+                	case "product":
+	                    	$size = array(
+		                        '470x705' => ['w'=>470,'h'=>705],
+		                        '270x350' => ['w'=>270,'h'=>350],
+		                        '50x50' =>['w'=>50,'h'=>50]);
+	                    break;
+                	case "productImage":
+	                    	$size = array('100x130' => ['w'=>100,'h'=>130],);
+	                    break;
+                	default:
+                    		$size = array('270x350' => ['w'=>270,'h'=>350],);
+        	}
+            $imageRealPath 	= 	$image->getRealPath();
+            $img = Image::make($imageRealPath); // use this if you want facade style code
+//	    	$img->resize($size, null, function($constraint) {
+//	    		 $constraint->aspectRatio();// tự động điều chỉnh theo size
+//	    	});
+            foreach ($size as $key => $val) {
+               	$path = ('resources/upload/').$key.'/'. $name;
+          		$size =  $img->resize($val['w'], $val['h'])->save($path);
+            } 
+            return $size;
+	}
+	catch(Exception $e)
+	{
+		return false;
+	}
+
+}
 ?>

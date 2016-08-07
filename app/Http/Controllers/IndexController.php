@@ -34,10 +34,12 @@ class IndexController extends Controller
 	}
 
 	public function productDetail($id) {
-		if ($id) {
-			$product = DB::table('products')->where('id',$id)->first();
-		}
+	       if ($id) {
+                        $product = DB::table('products')->where('id',$id)->first();
+                        $image = DB::table('product_images')->select('id','image')->where('product_id',$id )->get();
+                        
+	       }
 		
-    	return view('user.page.product', compact('product'));
+    	return view('user.page.product', compact('product','image'));
 	}
 }
