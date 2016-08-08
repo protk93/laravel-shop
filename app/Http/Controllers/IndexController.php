@@ -1,11 +1,9 @@
 <?php
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+//use Illuminate\Http\Request;
 use App\Http\Requests;
-use DB,
-    Mail,
-    Cart;
+use DB,Mail,Cart,Request;
 
 class IndexController extends Controller {
 
@@ -67,6 +65,7 @@ class IndexController extends Controller {
     public function order($id) {
         $product = DB::table('products')->where('id', $id)->first();
         Cart::add(array('id' => $id, 'name' => $product->name, 'qty' => 1, 'price' => $product->price, 'options' => array('image' => $product->image)));
+        var_dump(Request::input('qty'));exit;
         return redirect()->route('listCart');
         
     }
@@ -81,5 +80,19 @@ class IndexController extends Controller {
         Cart::remove($id);
         return redirect()->route('listCart');
     }
+
+    public function updateCart($id,$qty) {
+        if(Request::ajax()) {
+             $id = Request::get('id');
+             $qty = (int)Request::get('qty');
+             $token = Request::get('_token');
+             if ($id && $qty) {
+                Cart::update($id,$qty);
+                return 'ok';   
+             }
+             
+        }
+    }
+
 
 }

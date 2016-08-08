@@ -41,14 +41,18 @@
           <div class="row">
             <div class="span7">
               <h1 class="productname"><span class="bgnone">{!!$product->name!!}</span></h1>
+              <form method="GET" action="{!!url('mua-hang',[$product->id,$product->alias])!!}">
+               <input type="hidden" name="_token" value="{{ csrf_token() }}">
               <div class="productprice">
                 <div class="productpageprice">
                   <span class="spiral"></span>{!!number_format($product->price)!!}</div>
+                  <input type="number" name="qty" value="1" min="1">
               </div>
               <ul class="productpagecart">
-                <li><a class="cart" href="#">Add to Cart</a>
+                <li><a class="cart cart-product" href="#">Add to Cart</a>
                 </li>
               </ul>
+              </form>
          <!-- Product Description tab & comments-->
          <div class="productdesc">
                 <ul class="nav nav-tabs" id="myTab">
@@ -156,7 +160,7 @@
             <span class="sale tooltip-test">Sale</span>
             <a href="{!!url('chi-tiet-san-pham',[$item->id,$item->alias])!!}"><img alt="" src="{!!asset('resources/upload/270x350/'.$item->image)!!}"></a>
             <div class="pricetag">
-              <span class="spiral"></span><a href="#" class="productcart">ADD TO CART</a>
+              <span class="spiral"></span><a href="{!!url('mua-hang',[$item->id,$item->alias])!!}" class="productcart">ADD TO CART</a>
               <div class="price">
                 <div class="pricenew">{!!number_format($item->price)!!}</div>
                 <div class="priceold"></div>

@@ -51,3 +51,4 @@ Route::post('lien-he' ,['as' => 'postContact','uses'   => 'IndexController@postC
 Route::get('mua-hang/{id}/{name}' ,['as' => 'order','uses'   => 'IndexController@order']);
 Route::get('gio-hang' ,['as' => 'listCart','uses'   => 'IndexController@listCart']);
 Route::get('xoa-san-pham/{id}' ,['as' => 'delProduct','uses'   => 'IndexController@delProduct']);
+Route::post('update-gio-hang/{id}/{qty}' ,['as' => 'updateCart','uses'   => 'IndexController@updateCart']);

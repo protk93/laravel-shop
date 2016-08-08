@@ -24,22 +24,27 @@
             <th class="total">Total</th>
            
           </tr>
+          <form method="post">
+          <input type="hidden" name="_token" value="{{ csrf_token() }}">
           @foreach ($content as $item)
           <tr>
             <td class="image"><a href="#"><img title="product" alt="product" src="{!!asset('resources/upload/50x50/'.$item['options']['image'])!!}" height="50" width="50"></a></td>
             <td  class="name"><a href="#">{!!$item['name']!!}</a></td>
             
-            <td class="quantity"><input type="text" size="1" value="{!!$item['qty']!!}" name="quantity[40]" class="span1">
-             
+            <td class="quantity">
+              <input class="span1 qty" type="text" size="1" value="{!!$item['qty']!!}" name="quantity[40]" >
              </td>
-             <td class="total"> <a href="#"><img class="tooltip-test" data-original-title="Update" src="{!!asset('public/user/img/update.png')!!}" alt=""></a>
+             <td class="total"> 
+             <a href="#" class="updateCart" data-idcart="{!!$item['rowid']!!}" >
+                  <img class="tooltip-test" data-original-title="Update" src="{!!asset('public/user/img/update.png')!!}" alt="">
+             </a>
               <a href="{!!route('delProduct',$item['rowid'])!!}"><img class="tooltip-test" data-original-title="Remove"  src="{!!asset('public/user/img/remove.png')!!}" alt=""></a></td>
             <td class="price">{!!number_format($item['price'])!!}</td>
             <td class="total">{!!number_format($item['price']*$item['qty']) !!}</td>
              
           </tr>
-          
           @endforeach
+          </form>
         </table>
       </div>
       <div class="container">

@@ -101,7 +101,7 @@
                 
                 <a href="{!!url('chi-tiet-san-pham',[$item->id,$item->alias])!!}"><img alt="" src="{!!asset('resources/upload/270x350/'.$item->image)!!}"></a>
                 <div class="pricetag">
-                  <span class="spiral"></span><a href="#" class="productcart">ADD TO CART</a>
+                  <span class="spiral"></span><a href="{!!url('mua-hang',[$item->id,$item->alias])!!}" class="productcart">ADD TO CART</a>
                   <div class="price">
                     <div class="pricenew">{!!number_format($item->price)!!}</div>
                     <div class="priceold"></div>
