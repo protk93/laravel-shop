@@ -1,0 +1,1 @@
+"gloudemans/shoppingcart": "~1.3" : them vao json

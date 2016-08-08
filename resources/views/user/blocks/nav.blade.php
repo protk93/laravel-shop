@@ -44,7 +44,7 @@
         </div>
       </li>
        @endforeach
-      <li><a href="contact.html">Contact</a>
+      <li><a href="{!!url('lien-he')!!}">Contact</a>
       </li>         
     </ul>
   </nav>

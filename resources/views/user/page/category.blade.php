@@ -60,7 +60,7 @@
       <ul class="bestseller">
       @foreach($lastedProduct as $item)
         <li>
-          <img width="50" height="50" src="{!!asset('resources/upload/'.$item->image)!!}" alt="product" title="product">
+          <img  src="{!!asset('resources/upload/50x50/'.$item->image)!!}" alt="product" title="product">
           <a class="productname" href="{!!url('chi-tiet-san-pham',[$item->id,$item->alias])!!}"> {!!$item->name!!}</a>
           <span class="procategory">{!!$item->cateName!!}</span>
           <span class="price">{!!number_format($item->price)!!}</span>
@@ -74,10 +74,10 @@
       <div class="flexslider" id="mainslider">
         <ul class="slides">
           <li>
-            <img src="img/product1.jpg" alt="" />
+            <img src="{!!url('public/user/img/banner_cate2.jpg')!!}" alt="" />
           </li>
           <li>
-            <img src="img/product2.jpg" alt="" />
+            <img src="{!!url('public/user/img/banner_cate.jpg')!!}" alt="" />
           </li>
         </ul>
       </div>
@@ -93,13 +93,13 @@
          <!-- Category-->
          <section id="categorygrid">
           <ul class="thumbnails grid">
-          @if($product) 
+          @if($product->total()>0) 
           @foreach ($product as $item)
             <li class="span3">
               <a class="prdocutname" href="{!!url('chi-tiet-san-pham',[$item->id,$item->alias])!!}">{!!$item->name!!}</a>
               <div class="thumbnail">
                 
-                <a href="{!!url('chi-tiet-san-pham',[$item->id,$item->alias])!!}"><img alt="" src="{!!asset('resources/upload/'.$item->image)!!}" height="380" width="270"></a>
+                <a href="{!!url('chi-tiet-san-pham',[$item->id,$item->alias])!!}"><img alt="" src="{!!asset('resources/upload/270x350/'.$item->image)!!}"></a>
                 <div class="pricetag">
                   <span class="spiral"></span><a href="#" class="productcart">ADD TO CART</a>
                   <div class="price">
@@ -110,28 +110,27 @@
               </div>
             </li>
           @endforeach
-          @else
-          <h3>Dữ liệu đang cập nhật</h3>
-          @endif
-
           </ul>
           <div class="pagination pull-right">
             <ul>
-              <li><a href="#">Prev</a>
+              @if($product->currentPage() != 1)
+              <li><a href="{!!$product->previousPageUrl()!!}">Prev</a>
+              @endif
               </li>
-              <li class="active">
-                <a href="#">1</a>
+              @for ($i=1; $i<=$product->lastPage();$i++ )
+              <li class="{!!($product->currentPage() == $i)?'active':''!!}">
+                <a href="{!!$product->url($i)!!}">{!!$i!!}</a>
               </li>
-              <li><a href="#">2</a>
-              </li>
-              <li><a href="#">3</a>
-              </li>
-              <li><a href="#">4</a>
-              </li>
-              <li><a href="#">Next</a>
+              @endfor
+              @if($product->currentPage() != $product->lastPage())
+              <li><a href="{!!$product->nextPageUrl()!!}">Next</a>
+              @endif
               </li>
             </ul>
           </div>
+          @else
+          <h3>Dữ liệu đang cập nhật</h3>
+          @endif
         </section>
       </div>
     </div>

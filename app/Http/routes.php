@@ -44,8 +44,10 @@ Route::group(['prefix'=>'admin','middleware' => 'auth'], function() {
 Route::get('auth/login' ,['as'  => 'auth.getLogin','uses'   => 'Auth\AuthController@getLogin']);	
 Route::post('auth/login' ,['as' => 'auth.postLogin','uses'  => 'Auth\AuthController@postLogin']);
 Route::get('auth/logout' ,['as' => 'auth.getLogout','uses'   => 'Auth\AuthController@getLogout']);	
-Route::get('test/{id}/{name}', function () {
-    return view('user.page.category');
-});
 Route::get('loai-san-pham/{id}/{name}' ,['as' => 'productCate','uses'   => 'IndexController@productCate']);
 Route::get('chi-tiet-san-pham/{id}/{name}' ,['as' => 'productDetail','uses'   => 'IndexController@productDetail']);
+Route::get('lien-he' ,['as' => 'getContact','uses'   => 'IndexController@getContact']);
+Route::post('lien-he' ,['as' => 'postContact','uses'   => 'IndexController@postContact']);
+Route::get('mua-hang/{id}/{name}' ,['as' => 'order','uses'   => 'IndexController@order']);
+Route::get('gio-hang' ,['as' => 'listCart','uses'   => 'IndexController@listCart']);
+Route::get('xoa-san-pham/{id}' ,['as' => 'delProduct','uses'   => 'IndexController@delProduct']);

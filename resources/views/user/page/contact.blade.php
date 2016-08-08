@@ -14,7 +14,8 @@
   <h1 class="heading1"><span class="maintext">Contact</span><span class="subtext"> Contact Us for more</span></h1>
   <div class="row">
     <div class="span9">
-      <form class="form-horizontal contactform"  method="post">
+      <form class="form-horizontal" action="{!!url('lien-he')!!}" method="post">
+      <input type="hidden" name="_token" value="{{ csrf_token() }}">
         <fieldset>
           <div class="control-group">
             <label for="name" class="control-label">Name <span class="required">*</span></label>
@@ -22,18 +23,7 @@
               <input type="text"  class="required" id="name" value="" name="name">
             </div>
           </div>
-          <div class="control-group">
-            <label for="email" class="control-label">Email <span class="required">*</span></label>
-            <div class="controls">
-              <input type="email"  class="required email" id="email" value="" name="email">
-            </div>
-          </div>
-          <div class="control-group">
-            <label for="url" class="control-label">Url</label>
-            <div class="controls">
-              <input type="url" id="url" value="" name="url">
-            </div>
-          </div>
+          
           <div class="control-group">
             <label for="message" class="control-label">Message</label>
             <div class="controls">
