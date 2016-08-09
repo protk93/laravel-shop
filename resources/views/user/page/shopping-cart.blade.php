@@ -19,7 +19,7 @@
             <th class="name">Product Name</th>
             
             <th class="quantity">Qty</th>
-              <th class="total">Action</th>
+            <th class="total">Action</th>
             <th class="price">Unit Price</th>
             <th class="total">Total</th>
            
@@ -57,8 +57,8 @@
                 <td><span class="bold totalamout">{!!number_format($total)!!}</span></td>
               </tr>
             </table>
-            <input type="submit" value="CheckOut" class="btn btn-orange pull-right">
-            <input type="submit" value="Continue Shopping" class="btn btn-orange pull-right mr10">
+              <input type="button" value="CheckOut" class="btn btn-orange pull-right">
+              <a href="{!!url('/')!!}"><input type="button" value="Continue Shopping" class="btn btn-orange pull-right mr10"></a>
           </div>
         </div>
         </div>

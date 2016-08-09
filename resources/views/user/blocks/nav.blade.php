@@ -12,7 +12,7 @@
                   </li>
                   <li><a class="myaccount" href="#">My Account</a>
                   </li>
-                  <li><a class="shoppingcart" href="#">Shopping Cart</a>
+                  <li><a class="shoppingcart" href="{!!url('gio-hang')!!}">{!!Cart::count()!!}</a>
                   </li>
                   <li><a class="checkout" href="#">CheckOut</a>
                   </li>

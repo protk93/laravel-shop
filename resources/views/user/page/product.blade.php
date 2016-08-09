@@ -46,7 +46,6 @@
               <div class="productprice">
                 <div class="productpageprice">
                   <span class="spiral"></span>{!!number_format($product->price)!!}</div>
-                  <input type="number" name="qty" value="1" min="1">
               </div>
               <ul class="productpagecart">
                 <li><a class="cart cart-product" href="#">Add to Cart</a>

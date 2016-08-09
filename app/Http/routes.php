@@ -48,7 +48,11 @@ Route::get('loai-san-pham/{id}/{name}' ,['as' => 'productCate','uses'   => 'Inde
 Route::get('chi-tiet-san-pham/{id}/{name}' ,['as' => 'productDetail','uses'   => 'IndexController@productDetail']);
 Route::get('lien-he' ,['as' => 'getContact','uses'   => 'IndexController@getContact']);
 Route::post('lien-he' ,['as' => 'postContact','uses'   => 'IndexController@postContact']);
-Route::get('mua-hang/{id}/{name}' ,['as' => 'order','uses'   => 'IndexController@order']);
+Route::get('mua-hang/{id}/{qty}' ,['as' => 'order','uses'   => 'IndexController@order']);
 Route::get('gio-hang' ,['as' => 'listCart','uses'   => 'IndexController@listCart']);
 Route::get('xoa-san-pham/{id}' ,['as' => 'delProduct','uses'   => 'IndexController@delProduct']);
 Route::post('update-gio-hang/{id}/{qty}' ,['as' => 'updateCart','uses'   => 'IndexController@updateCart']);
+
+Route::get('test' ,['as' => 'test',function(){
+    return view ('user.blocks.popup');
+}]);

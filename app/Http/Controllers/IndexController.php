@@ -15,7 +15,7 @@ class IndexController extends Controller {
 
     public function productCate($id) {
         if ($id) {
-            $product = DB::table('products')->select('name', 'image', 'alias', 'price', 'id', 'cate_id')->where('cate_id', $id)->orderBy('id', 'desc')->paginate(5);
+            $product = DB::table('products')->select('name', 'image', 'alias', 'price', 'id', 'cate_id')->where('cate_id', $id)->orderBy('id', 'desc')->paginate(2);
             $cate = DB::table('cates')->select('parent_id')->where('id', $id)->first();
             if ($cate) {
                 $menuCate = DB::table('cates')->select('name', 'alias', 'id', 'parent_id')->where('parent_id', $cate->parent_id)->get();
@@ -65,9 +65,16 @@ class IndexController extends Controller {
     public function order($id) {
         $product = DB::table('products')->where('id', $id)->first();
         Cart::add(array('id' => $id, 'name' => $product->name, 'qty' => 1, 'price' => $product->price, 'options' => array('image' => $product->image)));
-        var_dump(Request::input('qty'));exit;
         return redirect()->route('listCart');
         
+        //gọi ajax và popup modal
+        /*if(Request::ajax()) {
+        $id = (int)Request::get('id');
+        $qty = (int)Request::get('qty');
+        $product = DB::table('products')->where('id', $id)->first();
+        Cart::add(array('id' => $id, 'name' => $product->name, 'qty' => $qty, 'price' => $product->price, 'options' => array('image' => $product->image)));
+        return 'ok';
+        }*/
     }
 
     public function listCart() {

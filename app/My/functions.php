@@ -61,7 +61,7 @@ function changeTitle($str) {
     return $str; 
 } 
 
-function cate_parent($data, $parent = 0, $str ='--', $select = 3) {
+function cate_parent($data, $parent = 0, $str ='--', $select = 0) {
 	foreach ($data as $key => $value) {
 		$id = $value['id'];
 		$name = $value['name'];
@@ -77,7 +77,37 @@ function cate_parent($data, $parent = 0, $str ='--', $select = 3) {
 	}
 
 
-} 
+}
+
+function cate_list($data, $parent = 0, $str ='--') {
+        $i= 0;
+	foreach ($data as $key => $value) {
+		$id = $value['id'];
+		$name = $value['name'];
+                if($value['status']==1) {
+                    $status ="active";    
+                } else {
+                    $status ="inactive";
+                }
+                $urlDel = route('admin.cate.getDelete',$id);
+                $urlEdit = route('admin.cate.getEdit',$id);
+                
+		if($value['parent_id'] == $parent) {
+			echo "<tr class='odd gradeX' align=''>";
+                        echo "<td ></td>";
+                        echo "<td >$str $name</td>";
+                        echo "<td >$status</td>";
+                        echo '<td class="center"><i class="fa fa-trash-o  fa-fw"></i><a href="'.$urlDel.'" onclick='."return xacnhanxoa('Bạn Có Chắc Muốn Xóa Không')".'> Delete</a></td>';
+                        echo '<td class="center"><i class="fa fa-pencil fa-fw"></i> <a href="'.$urlDel.'">Edit</a></td>';
+			echo"</tr>";
+			
+			cate_list($data, $id, $str.' --');
+		}
+	}
+
+
+}
+
 function deleteImage($image, $type) {
 	switch ($type) {
 		case "product":

@@ -34,6 +34,9 @@
   
    @yield('content')
 </div>
+
+ {{-- @include('user.blocks.popup'): include popup vao để show gio hàng --}}   
+
 <!-- Footer -->
 @include('user.blocks.footer')
 <!-- javascript

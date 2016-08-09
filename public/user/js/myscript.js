@@ -18,6 +18,23 @@ $(document).ready(function() {
 		});
 		
 	});
-
-	
+// thêm sản phẩm vào giỏ hàng và show popup.
+	$('a.productcart').click(function() {
+            /*var qty = 1;
+            var id = $(this).attr('id');
+            $.ajax({
+			url: 'mua-hang/'+id+'/'+qty,
+			type: 'GET',
+			data: {'qty':qty,'id':id},
+		})
+		.done(function($data) {
+			if($data == 'ok') {
+                                $("#myModal").load(location.href + " #myModal>*", "");//reload lại modal mới hiển thị sản phẩm mới add vào
+                        	$('#myModal').modal('show');
+			} else {
+				alert(' ban khong them dc');
+			}
+		}); */
+            
+        });
 });
