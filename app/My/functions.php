@@ -82,26 +82,39 @@ function cate_parent($data, $parent = 0, $str ='--', $select = 0) {
 function cate_list($data, $parent = 0, $str ='--') {
         $i= 0;
 	foreach ($data as $key => $value) {
+            $i++;
 		$id = $value['id'];
 		$name = $value['name'];
                 if($value['status']==1) {
-                    $status ="active";    
+                    $status ="active";
+                    $action = "inactive";
                 } else {
                     $status ="inactive";
+                    $action = "active";
                 }
                 $urlDel = route('admin.cate.getDelete',$id);
                 $urlEdit = route('admin.cate.getEdit',$id);
                 
 		if($value['parent_id'] == $parent) {
+                    if($value['parent_id'] == 0) {
 			echo "<tr class='odd gradeX' align=''>";
-                        echo "<td ></td>";
+                        echo "<td >$i</td>";
+                        echo "<td > $name</td>";
+                        echo "<td >$status</td>";
+                        echo "<td class='center'><i class='fa fa-trash-o  fa-fw'></i><a href='".$urlDel."' onclick=\"return xacnhanxoa('Bạn Có Chắc Muốn Xóa Không')\"> $action</a></td>";
+                        echo '<td class="center"><i class="fa fa-pencil fa-fw"></i> <a href="'.$urlEdit.'">Edit</a></td>';
+			echo"</tr>";
+                        cate_list($data, $id, $str.' --');
+                    } else {
+                        echo "<tr class='odd gradeX' align=''>";
+                        echo "<td >$i</td>";
                         echo "<td >$str $name</td>";
                         echo "<td >$status</td>";
-                        echo '<td class="center"><i class="fa fa-trash-o  fa-fw"></i><a href="'.$urlDel.'" onclick='."return xacnhanxoa('Bạn Có Chắc Muốn Xóa Không')".'> Delete</a></td>';
-                        echo '<td class="center"><i class="fa fa-pencil fa-fw"></i> <a href="'.$urlDel.'">Edit</a></td>';
+                        echo "<td class='center'><i class='fa fa-trash-o  fa-fw'></i><a href='".$urlDel."' onclick=\"return xacnhanxoa('Bạn Có Chắc Muốn đổi trạng thái không!!')\"> $action</a></td>";
+                        echo '<td class="center"><i class="fa fa-pencil fa-fw"></i> <a href="'.$urlEdit.'">Edit</a></td>';
 			echo"</tr>";
-			
-			cate_list($data, $id, $str.' --');
+                        cate_list($data, $id, $str.' --');
+                    }
 		}
 	}
 

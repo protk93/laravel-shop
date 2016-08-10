@@ -36,11 +36,16 @@ class UserController extends Controller
 		$user_current_id = Auth::user()->id;	
 		$user = User::find($id);
 		if ($id == 4 || ($user_current_id != 4 && $user->level == 1)) {
-			return redirect()->route('admin.user.list')->with(['flash_level'=>'danger','flash_message'=>"sorry !! you can't access delete user"]);
+			return redirect()->route('admin.user.list')->with(['flash_level'=>'danger','flash_message'=>"sorry !! you can't access change status user"]);
 		} else {
-			$user->delete();
+                    if ($user->status == 1) {
+                        $user ->status = 0;
+                    } else {
+                        $user ->status = 1;
+                    }
+			$user->save();
 		}
-		return redirect()->route('admin.user.list')->with(['flash_level'=>'success','flash_message'=>"Delete user success!!"]);
+		return redirect()->route('admin.user.list')->with(['flash_level'=>'success','flash_message'=>"change status user success!!"]);
 	}
 
 	public function getEdit($id) {

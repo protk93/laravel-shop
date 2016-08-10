@@ -25,7 +25,7 @@ class CateController extends Controller
 	}
 
 	public function getList() {
-		$data = cate::select('name','id','parent_id','status')->orderBy('id', 'desc')->get()->toArray();
+		$data = cate::select('name','id','parent_id','status')->get()->toArray();
 		return view ('admin.cate.list', compact('data'));
 	}
 
@@ -33,8 +33,13 @@ class CateController extends Controller
 		$parent = cate::where('parent_id',$id)->count();
 		if (empty($parent)) {
 			$cate = cate::findOrFail($id);
-			$cate->delete();
-			return redirect()->route('admin.cate.list')->with(['flash_level'=>'success','flash_message'=>"delete category success!!"]);
+                        if ($cate->status == 1) {
+                            $cate ->status = 0;
+                        } else {
+                            $cate ->status = 1;
+                        }
+			$cate->save();
+			return redirect()->route('admin.cate.list')->with(['flash_level'=>'success','flash_message'=>"change status category success!!"]);
 		} else {
 			return redirect()->route('admin.cate.list')->with(['flash_level'=>'danger','flash_message'=>"delete fail !! sorry, you can't delete"]);
 		}
@@ -49,9 +54,8 @@ class CateController extends Controller
 
 	public function postEdit(Request $request, $id) {
 		$this->validate($request, 
-			['txtCateName' => 'required|unique:cates,name',],
-			['txtCateName.required' => 'Vui Lòng Nhập tên category',
-            'txtCateName.unique' => 'category đã tồn tại',]
+			['txtCateName' => 'required',],
+			['txtCateName.required' => 'Vui Lòng Nhập tên category',]
 		);
 		$cate = cate::find($id);
 		$cate ->name        = $request->txtCateName;

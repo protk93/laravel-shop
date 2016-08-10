@@ -9,7 +9,7 @@
             <th>Username</th>
             <th>Level</th>
             <th>Status</th>
-            <th>Delete</th>
+            <th>Active/InActive</th>
             <th>Edit</th>
         </tr>
     </thead>
@@ -30,7 +30,7 @@
                 @endif
             </td>
             <td>{!!($item['status']==1)?'Active':'InActive'!!}</td>
-            <td class="center"><i class="fa fa-trash-o  fa-fw"></i><a href="{{route('admin.user.getDelete',$item['id'])}}" onclick="return xacnhanxoa('Bạn Có Chắc Muốn Xóa Không')"> Delete</a></td>
+            <td class="center"><a href="{{route('admin.user.getDelete',$item['id'])}}" onclick="return xacnhanxoa('Bạn Có Chắc Muốn đổi trạng thái Không')">{!!($item['status']==1)?'InActive':'Active'!!}</a></td>
             <td class="center"><i class="fa fa-pencil fa-fw"></i> <a href="{{route('admin.user.getEdit',$item['id'])}}">Edit</a></td>
         </tr>
     @endforeach 

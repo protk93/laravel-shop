@@ -182,7 +182,7 @@
     <script src="{{url('public/admin/dist/js/sb-admin-2.js')}}"></script>
 
     <!-- DataTables JavaScript -->
-    <script src="{{url('public/admin/bower_components/DataTables/media/js/jquery.dataTables.min.js')}}"></script>
+    <script src="{{url('public/admin/bower_components/DataTables/media/js/jquery.dataTables.js')}}"></script>
     <script src="{{url('public/admin/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js')}}"></script>
 
     <!-- Page-Level Demo Scripts - Tables - Use for reference -->

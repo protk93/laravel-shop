@@ -702,28 +702,28 @@
 		}
 	
 		/* Check that the class assignment is correct for sorting */
-		var bAsc = $.inArray('asc', oCol.asSorting) !== -1;
-		var bDesc = $.inArray('desc', oCol.asSorting) !== -1;
-		if ( !oCol.bSortable || (!bAsc && !bDesc) )
-		{
-			oCol.sSortingClass = oClasses.sSortableNone;
-			oCol.sSortingClassJUI = "";
-		}
-		else if ( bAsc && !bDesc )
-		{
-			oCol.sSortingClass = oClasses.sSortableAsc;
-			oCol.sSortingClassJUI = oClasses.sSortJUIAscAllowed;
-		}
-		else if ( !bAsc && bDesc )
-		{
-			oCol.sSortingClass = oClasses.sSortableDesc;
-			oCol.sSortingClassJUI = oClasses.sSortJUIDescAllowed;
-		}
-		else
-		{
-			oCol.sSortingClass = oClasses.sSortable;
-			oCol.sSortingClassJUI = oClasses.sSortJUI;
-		}
+//		var bAsc = $.inArray('asc', oCol.asSorting) !== -1;
+//		var bDesc = $.inArray('desc', oCol.asSorting) !== -1;
+//		if ( !oCol.bSortable || (!bAsc && !bDesc) )
+//		{
+//			oCol.sSortingClass = oClasses.sSortableNone;
+//			oCol.sSortingClassJUI = "";
+//		}
+//		else if ( bAsc && !bDesc )
+//		{
+//			oCol.sSortingClass = oClasses.sSortableAsc;
+//			oCol.sSortingClassJUI = oClasses.sSortJUIAscAllowed;
+//		}
+//		else if ( !bAsc && bDesc )
+//		{
+//			oCol.sSortingClass = oClasses.sSortableDesc;
+//			oCol.sSortingClassJUI = oClasses.sSortJUIDescAllowed;
+//		}
+//		else
+//		{
+//			oCol.sSortingClass = oClasses.sSortable;
+//			oCol.sSortingClassJUI = oClasses.sSortJUI;
+//		}
 	}
 	
 	
@@ -4587,7 +4587,7 @@
 	
 						test = x<y ? -1 : x>y ? 1 : 0;
 						if ( test !== 0 ) {
-							return sort.dir === 'asc' ? test : -test;
+							//return sort.dir === 'asc' ? test : -test;
 						}
 					}
 	
