@@ -18,6 +18,10 @@
             <input class="form-control" name="txtCateName" placeholder="Please Enter Category Name" />
         </div>
         <div class="form-group">
+            <label>Category Name Slug</label>
+            <input class="form-control" name="txtCateAlias" placeholder="Please Enter Category Name Slug" />
+        </div>
+        <div class="form-group">
             <label>Category Order</label>
             <input class="form-control" name="txtOrder" placeholder="Please Enter Category Order" />
         </div>

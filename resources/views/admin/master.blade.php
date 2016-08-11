@@ -168,7 +168,6 @@
 
     </div>
     <!-- /#wrapper -->
-
     <!-- jQuery -->
     <script src="{{url('public/admin/bower_components/jquery/dist/jquery.min.js')}}"></script>
 
@@ -182,7 +181,11 @@
     <script src="{{url('public/admin/dist/js/sb-admin-2.js')}}"></script>
 
     <!-- DataTables JavaScript -->
+    @if (Request::url() == route('admin.cate.list'))
     <script src="{{url('public/admin/bower_components/DataTables/media/js/jquery.dataTables.js')}}"></script>
+    @else
+    <script src="{{url('public/admin/bower_components/DataTables/media/js/jquery.dataTables.min.js')}}"></script>
+    @endif
     <script src="{{url('public/admin/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js')}}"></script>
 
     <!-- Page-Level Demo Scripts - Tables - Use for reference -->
