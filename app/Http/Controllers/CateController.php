@@ -18,11 +18,11 @@ class CateController extends Controller
 		$cate ->keywords    = $request->txtKeyword;
 		$cate ->description = $request->txtDescription;
 		$cate ->parent_id   = $request->parentId;
-    if ($request->txtCateAlias) {
-      $cate ->alias       = changeTitle($request->txtCateAlias);
-    } else {
-      $cate ->alias       = changeTitle($request->txtCateName);
-    }
+                if ($request->txtCateAlias) {
+                  $cate ->alias     = changeTitle($request->txtCateAlias);
+                } else {
+                  $cate ->alias     = changeTitle($request->txtCateName);
+                }
 		$cate ->status      = $request->rdoStatus;
 		$cate ->save();
 		return redirect()->route('admin.cate.list')->with(['flash_level'=>'success','flash_message'=>"Add category success!!"]);
@@ -67,7 +67,7 @@ class CateController extends Controller
 		$cate ->keywords    = $request->txtKeyword;
 		$cate ->description = $request->txtDescription;
 		$cate ->parent_id   = $request->parentId;
-		$cate ->alias       = changeTitle($request->txtCateName);
+		$cate ->alias       = changeTitle($request->txtCateAlias);
 		$cate ->status      = $request->rdoStatus;
 		$cate ->save();
 		return redirect()->route('admin.cate.list')->with(['flash_level'=>'success','flash_message'=>"Edit category success!!"]);

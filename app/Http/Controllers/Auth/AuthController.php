@@ -80,11 +80,12 @@ class AuthController extends Controller
         $login = array(
             'username' =>$request->txtUser,
             'password' => $request->password,
-            'level'=>1
+            'status' => 1,
+            'group_id'=>4,
             );
         
         if (Auth::attempt($login)) {
-            return redirect('admin/user/list');
+            return redirect()->intended($this->redirectPath());// chuyển tới trang vừa mới yêu cầu.
         } else {
             $errors = new MessageBag(['password' => ['username or password invalid.']]);
             return redirect()->back()->withErrors($errors)->withInput();

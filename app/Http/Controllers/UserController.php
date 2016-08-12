@@ -8,11 +8,14 @@ use App\Http\Requests;
 use App\Http\Requests\UserRequest;
 use Hash;
 use App\User;
+use App\UserGroup;
 use Auth;
 class UserController extends Controller
 {
     	public function getAdd() {
-    		return view ('admin.user.add');
+            //chuyển id=>key và value là name
+            $userGroup = UserGroup::all()->lists('name', 'id')->toArray();
+            return view ('admin.user.add', compact('userGroup'));
 	}
 
 	public function postAdd(UserRequest $request) {
@@ -20,7 +23,7 @@ class UserController extends Controller
 		$user ->username = $request->txtUser;
 		$user ->password = Hash::make($request->txtPass);
 		$user ->email    = $request->txtEmail;
-		$user ->level    = $request->rdoLevel;
+                $user ->group_id    = $request->groupId;
 		$user ->remember_token    = $request->_token;
 		$user ->status    = $request->status;
 		$user->save();
@@ -28,12 +31,14 @@ class UserController extends Controller
 	}
 
 	public function getList() {
-		$user = User::select('id','username','level','email','status')->orderBy('id','desc')->get()->toArray();
+		$user = User::select('users.id','users.username','users.group_id','users.email','users.status','user_groups.name')
+                        ->join('user_groups' , 'user_groups.id' ,'=' , 'users.group_id')
+                        ->orderBy('id','desc')->get()->toArray();
 		return view ('admin.user.list', compact('user'));
 	}
 
 	public function getDelete($id) {
-		$user_current_id = Auth::user()->id;	
+		$user_current_id = Auth::user()->group_id;	
 		$user = User::find($id);
 		if ($id == 4 || ($user_current_id != 4 && $user->level == 1)) {
 			return redirect()->route('admin.user.list')->with(['flash_level'=>'danger','flash_message'=>"sorry !! you can't access change status user"]);

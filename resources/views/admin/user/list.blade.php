@@ -21,13 +21,7 @@
             <td>{!!$i!!}</td>
             <td>{!!$item['username']!!}</td>
             <td>
-                @if ($item['id']==4)
-                {{'SuperAdmin'}}
-                @elseif ($item['level']==1)
-                {{'Admin'}}
-                @else
-                {{'member'}}
-                @endif
+                {!!$item['name']!!}
             </td>
             <td>{!!($item['status']==1)?'Active':'InActive'!!}</td>
             <td class="center"><a href="{{route('admin.user.getDelete',$item['id'])}}" onclick="return xacnhanxoa('Bạn Có Chắc Muốn đổi trạng thái Không')">{!!($item['status']==1)?'InActive':'Active'!!}</a></td>

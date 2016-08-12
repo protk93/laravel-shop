@@ -17,6 +17,10 @@
             <input class="form-control" name="txtCateName" placeholder="Please Enter Category Name" value="{{ old('txtCateName',isset($cate)?$cate['name']:null) }}" />
         </div>
         <div class="form-group">
+            <label>Category Name Slug</label>
+            <input class="form-control" name="txtCateAlias" placeholder="Please Enter Category Name Slug" value="{{ old('txtCateAlias',isset($cate)?$cate['alias']:null) }}"/>
+        </div>
+        <div class="form-group">
             <label>Category Order</label>
             <input class="form-control" name="txtOrder" placeholder="Please Enter Category Order" value="{{ old('txtOrder',isset($cate)?$cate['order']:null) }}"/>
         </div>

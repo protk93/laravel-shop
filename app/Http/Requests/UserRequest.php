@@ -28,6 +28,7 @@ class UserRequest extends Request
             'txtPass'   => 'required|max:8',
             'txtRePass' => 'required|same:txtPass',
             'txtEmail'  => 'required|email',
+            'groupId'  => 'required',
         ];
     }
 
@@ -40,7 +41,8 @@ class UserRequest extends Request
             'txtRePass.required' => 'Vui Lòng Nhập repassword',
             'txtRePass.same'     => 'password không giống nhau',
             'txtEmail.required'  => 'Vui Lòng nhập email',
-            'txtEmail.email'     => 'email không đúng định dạng', 
+            'txtEmail.email'     => 'email không đúng định dạng',
+            'groupId.required'  => 'Vui Lòng chọn nhóm user',
             ];
     }
 }
